@@ -1,65 +1,54 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Formspree Submission</title>
+    <title>Formspree URL Test</title>
 
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
         }
 
         .container {
-            width: 400px;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 600px;
             text-align: center;
         }
 
         h1 {
             margin-bottom: 25px;
-            color: #222;
         }
 
         input {
             width: 100%;
-            padding: 12px;
+            padding: 15px 20px;
             box-sizing: border-box;
             border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 15px;
-            margin-bottom: 15px;
+            border-radius: 30px;
+            font-size: 16px;
+            outline: none;
         }
 
         button {
-            width: 100%;
-            padding: 12px;
-            background: #2563eb;
-            color: white;
+            margin-top: 20px;
+            padding: 12px 30px;
             border: none;
             border-radius: 6px;
+            background: #4285f4;
+            color: white;
             font-size: 16px;
             cursor: pointer;
         }
 
         button:hover {
-            background: #1d4ed8;
-        }
-
-        #message {
-            margin-top: 15px;
-            font-size: 14px;
+            background: #3367d6;
         }
     </style>
 </head>
@@ -68,56 +57,26 @@
 
     <div class="container">
 
-        <h1>Formspree Submission</h1>
+        <h1>Formspree URL Test</h1>
 
-        <input
-            type="url"
-            id="formUrl"
-            placeholder="Paste Formspree URL here"
-            required
-        >
+        <form
+            action="https://formspree.io/f/xnpnajpe"
+            method="POST">
 
-        <button onclick="openFormspree()">
-            Open Submission
-        </button>
+            <input
+                type="url"
+                name="submitted_url"
+                value="https://example.com"
+                placeholder="Enter URL"
+                required>
 
-        <p id="message"></p>
+            <button type="submit">
+                Submit
+            </button>
+
+        </form>
 
     </div>
 
-    <script>
-        function openFormspree() {
-
-            const url = document.getElementById("formUrl").value.trim();
-            const message = document.getElementById("message");
-
-            if (url === "") {
-                message.textContent = "Please enter a URL.";
-                message.style.color = "red";
-                return;
-            }
-
-            try {
-                const validUrl = new URL(url);
-
-                if (validUrl.protocol !== "https:") {
-                    message.textContent = "Please enter a valid HTTPS URL.";
-                    message.style.color = "red";
-                    return;
-                }
-
-                message.textContent = "Opening Formspree...";
-                message.style.color = "green";
-
-                window.open(validUrl.href, "_blank");
-
-            } catch (error) {
-                message.textContent = "Please enter a valid URL.";
-                message.style.color = "red";
-            }
-        }
-    </script>
-
 </body>
 </html>
-```
