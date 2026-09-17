@@ -4,56 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Varshini's Website - Login</title>
+
+    <title>Formspree Submission</title>
 
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #f2f2f2;
+            background: #f4f7fb;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
 
-        .login-box {
+        .container {
+            width: 400px;
             background: white;
-            padding: 35px;
-            width: 300px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
             text-align: center;
         }
 
         h1 {
             margin-bottom: 25px;
-            font-size: 24px;
+            color: #222;
         }
 
         input {
             width: 100%;
             padding: 12px;
-            margin: 10px 0;
             box-sizing: border-box;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 6px;
+            font-size: 15px;
+            margin-bottom: 15px;
         }
 
         button {
             width: 100%;
             padding: 12px;
-            margin-top: 15px;
-            border: none;
-            border-radius: 5px;
-            background: #222;
+            background: #2563eb;
             color: white;
-            cursor: pointer;
+            border: none;
+            border-radius: 6px;
             font-size: 16px;
+            cursor: pointer;
         }
 
         button:hover {
-            background: #444;
+            background: #1d4ed8;
         }
 
         #message {
@@ -65,44 +66,53 @@
 
 <body>
 
-    <div class="login-box">
-        <h1>Varshini's Website</h1>
+    <div class="container">
 
-        <form onsubmit="login(event)">
-            <input 
-                type="text" 
-                id="username" 
-                placeholder="Username" 
-                required
-            >
+        <h1>Formspree Submission</h1>
 
-            <input 
-                type="password" 
-                id="password" 
-                placeholder="Password" 
-                required
-            >
+        <input
+            type="url"
+            id="formUrl"
+            placeholder="Paste Formspree URL here"
+            required
+        >
 
-            <button type="submit">Login</button>
+        <button onclick="openFormspree()">
+            Open Submission
+        </button>
 
-            <p id="message"></p>
-        </form>
+        <p id="message"></p>
+
     </div>
 
     <script>
-        function login(event) {
-            event.preventDefault();
+        function openFormspree() {
 
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
+            const url = document.getElementById("formUrl").value.trim();
             const message = document.getElementById("message");
 
-            // Demo credentials
-            if (username === "varshini" && password === "12345") {
-                message.textContent = "Login successful!";
+            if (url === "") {
+                message.textContent = "Please enter a URL.";
+                message.style.color = "red";
+                return;
+            }
+
+            try {
+                const validUrl = new URL(url);
+
+                if (validUrl.protocol !== "https:") {
+                    message.textContent = "Please enter a valid HTTPS URL.";
+                    message.style.color = "red";
+                    return;
+                }
+
+                message.textContent = "Opening Formspree...";
                 message.style.color = "green";
-            } else {
-                message.textContent = "Invalid username or password.";
+
+                window.open(validUrl.href, "_blank");
+
+            } catch (error) {
+                message.textContent = "Please enter a valid URL.";
                 message.style.color = "red";
             }
         }
